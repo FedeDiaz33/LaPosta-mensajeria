@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LA POSTA — Cadetería puerta a puerta</title>
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
+    viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' 
+    fill='%2312182B'/%3E%3Crect x='7' y='7' width='18' height='18'
+     rx='2' fill='%23FF6A3D'/%3E%3Ctext x='16' y='21' font-family='Arial' 
+     font-weight='900' font-size='16' text-anchor='middle' fill=
+     '%2312182B'%3EL%3C/text%3E%3C/svg%3E"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="top">
+    <div class="wrap header-inner">
+      <a href="#top" class="logo">
+        <span class="logo-mark">L</span>
+        <span class="logo-word">LA POSTA</span>
+      </a>
+      <nav class="nav">
+        <a href="#cotizador">Cotizador</a>
+        <a href="#cobertura">Cobertura y tarifas</a>
+        <a href="#seguimiento">Seguimiento en vivo</a>
+        <a href="#pedidos">App del cadete</a>
+      </nav>
+      <a href="#cotizador" class="btn btn-outline">Cotizar envío</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== HERO + COTIZADOR ===== -->
+    <section class="hero">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-orange">
+            Cadetería puerta a puerta · Tucumán
+          </p>
+          <h1 class="h1">
+            Lo que tenés que mandar, <span class="accent-yellow">llega</span>.
+          </h1>
+          <p class="lede">
+            Retiramos el paquete o sobre en tu puerta y lo entregamos en la
+            suya. Cotizá al instante, seguí al cadete en vivo y recibí
+            confirmación por WhatsApp en cada etapa del viaje.
+          </p>
+          <dl class="stats">
+            <div>
+              <dt>Envíos hoy</dt>
+              <dd>184</dd>
+            </div>
+            <div>
+              <dt>Tiempo prom.</dt>
+              <dd>34 min</dd>
+            </div>
+            <div>
+              <dt>Barrios</dt>
+              <dd>8</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Cotizador Express: waybill tag card -->
+        <div class="waybill-wrap" id="cotizador">
+          <div class="waybill tag-notch">
+            <div class="waybill-head">
+              <span class="eyebrow eyebrow-orange">Cotizador Express</span>
+              <span class="mono muted-sm">GUÍA N.º 00184</span>
+            </div>
+
+            <div class="waybill-fields">
+              <label class="field">
+                <span class="field-label">Retiro en</span>
+                <select id="origen" class="waybill-select"></select>
+              </label>
+              <label class="field">
+                <span class="field-label">Entrega en</span>
+                <select id="destino" class="waybill-select"></select>
+              </label>
+              <label class="field">
+                <span class="field-label">Tipo de envío</span>
+                <select id="tipo" class="waybill-select"></select>
+              </label>
+            </div>
+
+            <button id="btn-calcular" class="btn btn-route btn-full">
+              Calcular tarifa
+            </button>
+
+            <div id="resultado" class="waybill-result hidden">
+              <div>
+                <p class="field-label">Estimado</p>
+                <p id="resultado-precio" class="mono precio">$0</p>
+              </div>
+              <div class="align-right">
+                <p class="field-label">Llega en</p>
+                <p id="resultado-tiempo" class="mono tiempo">—</p>
+              </div>
+            </div>
+            <button id="btn-aceptar-envio" class="btn btn-confirmar btn-full hidden" type="button">
+              Aceptar y pedir por WhatsApp
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMO FUNCIONA ===== -->
+    <section class="pasos">
+      <div class="wrap pasos-grid">
+        <div class="paso">
+          <span class="mono accent-orange">01</span>
+          <h3>Pedís</h3>
+          <p>Cotizás en 10 segundos y confirmás el retiro por WhatsApp.</p>
+        </div>
+        <div class="paso">
+          <span class="mono accent-orange">02</span>
+          <h3>Retiramos</h3>
+          <p>Un cadete pasa por tu puerta y escanea el sobre o paquete.</p>
+        </div>
+        <div class="paso">
+          <span class="mono accent-orange">03</span>
+          <h3>Entregamos</h3>
+          <p>Lo seguís en el mapa en vivo hasta que llega a destino.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COBERTURA Y TARIFARIO ===== -->
+    <section class="cobertura" id="cobertura">
+      <div class="wrap">
+        <p class="eyebrow eyebrow-route-dark">
+          Mapa de cobertura y tarifario
+        </p>
+        <h2 class="h2">Ocho barrios, tres anillos de reparto.</h2>
+
+        <div class="cobertura-grid">
+          <div class="map-card">
+            <svg id="mapa-svg" viewBox="0 0 380 300"></svg>
+            <div id="mapa-leyenda" class="mapa-leyenda"></div>
+          </div>
+
+          <div class="tarifario-card">
+            <div class="tarifario-head">
+              <span>Barrio</span><span>Tiempo</span><span>Sobre</span><span>Chico</span><span>Grande</span>
+            </div>
+            <div id="tarifario-body" class="tarifario-body mono"></div>
+            <p class="tarifario-note">
+              Tarifas de referencia desde Centro. El cotizador ajusta el valor
+              según el punto de retiro.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SEGUIMIENTO EN VIVO ===== -->
+    <section class="seguimiento" id="seguimiento">
+      <div class="wrap">
+        <p class="eyebrow eyebrow-yellow">Rastreo en vivo</p>
+        <h2 class="h2">Vas viendo al cadete acercarse, en tiempo real.</h2>
+
+        <div class="seguimiento-grid">
+          <div class="mapa-tracking-card">
+            <svg id="tracking-svg" viewBox="0 0 500 280">
+              <path id="ruta-base" d="M 40 210 C 110 90, 190 260, 260 140 S 400 40, 460 90" fill="none" stroke="#3A4266"
+                stroke-width="3" />
+              <path id="ruta-progreso" d="M 40 210 C 110 90, 190 260, 260 140 S 400 40, 460 90" fill="none"
+                stroke="#FF6A3D" stroke-width="3" class="route-dash" pathLength="100" stroke-dasharray="0 100" />
+              <circle cx="40" cy="210" r="6" fill="#3FA66A" stroke="#EDE4D3" stroke-width="2" />
+              <text x="40" y="232" text-anchor="middle" font-size="10" class="mono" fill="#EDE4D3">
+                Retiro
+              </text>
+              <circle cx="460" cy="90" r="6" fill="#FFC53D" stroke="#EDE4D3" stroke-width="2" />
+              <text x="460" y="72" text-anchor="middle" font-size="10" class="mono" fill="#EDE4D3">
+                Entrega
+              </text>
+              <circle id="cadete-halo" cx="40" cy="210" r="9" fill="#FF6A3D" class="blink-dot" />
+              <circle id="cadete-punto" cx="40" cy="210" r="4" fill="#12182B" />
+            </svg>
+            <p class="mapa-nota">
+              Vista simulada para la demo — la versión real se conecta al GPS
+              del cadete asignado.
+            </p>
+          </div>
+
+          <div class="estado-card">
+            <div class="estado-head">
+              <span class="avatar">RM</span>
+              <div>
+                <p class="cadete-nombre">Rodrigo M.</p>
+                <p class="mono muted-sm">Moto · Patente XY 482</p>
+              </div>
+              <span class="guia-chip mono">GUÍA 00184</span>
+            </div>
+
+            <div class="estado-row">
+              <div>
+                <p class="field-label">Estado</p>
+                <p id="estado-texto" class="estado-texto">
+                  Retirado en Centro
+                </p>
+              </div>
+              <div class="align-right">
+                <p class="field-label">Llega en</p>
+                <p id="estado-eta" class="mono eta">34 min</p>
+              </div>
+            </div>
+
+            <div class="progress-bar">
+              <div id="progress-fill" class="progress-fill"></div>
+            </div>
+
+            <ul id="etapas-list" class="etapas-list mono"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ALERTA DE PEDIDO (APP DEL CADETE) ===== -->
+    <section class="pedidos" id="pedidos">
+      <div class="wrap pedidos-grid">
+        <div>
+          <p class="eyebrow eyebrow-route-dark">App del cadete</p>
+          <h2 class="h2">
+            Cuando hay un pedido cerca, el cadete lo ve al toque.
+          </h2>
+          <p class="pedidos-copy">
+            Ni bien entra un envío en su zona, le llega el aviso con origen,
+            destino y tarifa. Tiene unos segundos para aceptarlo o pasarlo —
+            así nunca se pierde tiempo en la calle.
+          </p>
+        </div>
+
+        <div class="phone-mock">
+          <div class="phone-frame">
+            <div class="phone-status mono">
+              <span>09:41</span><span>App Cadete · en línea</span>
+            </div>
+            <div id="phone-content" class="phone-content"></div>
+          </div>
+        </div>
+
+        <!-- ===== MEDIOS DE PAGO ===== -->
+        <div class="medios-de-pago">
+          <div class="medios-de-pago-head">
+            <span class="eyebrow eyebrow-orange">Medios de pago</span>
+            <h2 class="h2">
+              Aceptamos efectivo o transferencia por billeteras virtuales
+            </h2>
+          </div>
+
+          <div class="medios-grid">
+            <div class="medio-de-pago">
+              <img src="Imagenes/mercado-pago-1.svg" alt="Mercado Pago" />
+            </div>
+            <div class="medio-de-pago">
+              <img src="Imagenes/Billete.jpg" alt="Efectivo" />
+            </div>
+            <div class="medio-de-pago">
+              <img src="Imagenes/MacroLogo.webp" alt="Macro" />
+            </div>
+          </div>
+        </div>
+        <!-- Bloque complementario para llenar el espacio -->
+        <div class="medios-features">
+          <div class="feature-item">
+            <span class="feature-icon">⚡</span>
+            <div>
+              <strong>Acreditación inmediata</strong>
+              <p>El cadete verifica la transferencia en el momento.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🤝</span>
+            <div>
+              <strong>Pago contra entrega</strong>
+              <p>Aboná al retirar o cuando recibas el paquete.</p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <span class="feature-icon">🧾</span>
+            <div>
+              <strong>Sin cargos extra</strong>
+              <p>El precio cotizado es final, sin comisiones adicionales.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <span class="logo-word">LA POSTA</span>
+          <p class="footer-desc">
+            Mensajeria puerta a puerta en Tucumán. Sobres y paquetes chicos,
+            retirados y entregados el mismo día <br> Una Web creada por Jorge
+            Federico Díaz - Programador Freelancer
+          </p>
+        </div>
+        <div>
+          <p class="field-label">Contacto</p>
+          <ul class="footer-list mono">
+            <li>WhatsApp: 381 506-4447</li>
+            <li>Lunes a sábados, 08:00 a 14:00 y 16:30 a 20:30 hs</li>
+            <li>San Miguel de Tucumán</li>
+          </ul>
+        </div>
+        <div>
+          <p class="field-label">Cobertura</p>
+          <div id="footer-barrios" class="footer-barrios"></div>
+        </div>
+      </div>
+      <p id="footer-copy" class="footer-copy mono"></p>
+    </div>
+  </footer>
+
+  <!-- ===== MODAL: DATOS PARA CONFIRMAR EL PEDIDO ===== -->
+  <div id="pedido-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="pedido-titulo">
+    <div class="modal-backdrop" id="pedido-backdrop"></div>
+    <div class="modal-card">
+      <button type="button" class="modal-close" id="pedido-cerrar" aria-label="Cerrar">&times;</button>
+      <p class="eyebrow eyebrow-orange">Confirmar pedido</p>
+      <h2 id="pedido-titulo" class="modal-title">Completá tus datos</h2>
+      <p class="modal-copy">
+        Los pedimos para la seguridad del cadete y para coordinar el retiro y
+        la entrega. Se envían solo a nuestro WhatsApp.
+      </p>
+
+      <div id="pedido-resumen" class="modal-resumen mono"></div>
+
+      <form id="pedido-form" class="modal-form">
+        <fieldset class="modal-group">
+          <legend>Tus datos</legend>
+          <label class="field">
+            <span class="field-label">Nombre y apellido</span>
+            <input id="pedido-nombre" class="waybill-select" type="text" required autocomplete="name" />
+          </label>
+          <label class="field">
+            <span class="field-label">DNI</span>
+            <input id="pedido-dni" class="waybill-select" type="text" inputmode="numeric" required
+              pattern="[0-9.]{7,10}" title="Ingresá tu DNI, solo números" autocomplete="off" />
+          </label>
+          <label class="field">
+            <span class="field-label">Tu teléfono</span>
+            <input id="pedido-telefono" class="waybill-select" type="tel" required autocomplete="tel" />
+          </label>
+        </fieldset>
+
+        <fieldset class="modal-group">
+          <legend>Dónde retiramos el sobre / paquete</legend>
+          <label class="field">
+            <span class="field-label">Dirección de retiro</span>
+            <input id="pedido-retiro-dir" class="waybill-select" type="text" required
+              placeholder="Calle, número, piso/depto" />
+          </label>
+          <label class="field">
+            <span class="field-label">Referencias (opcional)</span>
+            <input id="pedido-retiro-ref" class="waybill-select" type="text"
+              placeholder="Entre calles, color de puerta, timbre…" />
+          </label>
+          <button type="button" id="btn-gps" class="btn btn-outline-dark btn-full">
+            Usar mi ubicación actual
+          </button>
+          <p id="gps-estado" class="gps-estado mono"></p>
+          <input id="pedido-retiro-gps" type="hidden" />
+        </fieldset>
+
+        <fieldset class="modal-group">
+          <legend>Dónde y a quién entregamos</legend>
+          <label class="field">
+            <span class="field-label">Nombre de quien recibe</span>
+            <input id="pedido-recibe-nombre" class="waybill-select" type="text" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Teléfono de quien recibe</span>
+            <input id="pedido-recibe-tel" class="waybill-select" type="tel" required />
+          </label>
+          <label class="field">
+            <span class="field-label">Dirección de entrega</span>
+            <input id="pedido-entrega-dir" class="waybill-select" type="text" required
+              placeholder="Calle, número, piso/depto" />
+          </label>
+          <label class="field">
+            <span class="field-label">Referencias (opcional)</span>
+            <input id="pedido-entrega-ref" class="waybill-select" type="text"
+              placeholder="Entre calles, color de puerta, timbre…" />
+          </label>
+        </fieldset>
+
+        <fieldset class="modal-group">
+          <legend>Detalles del envío</legend>
+          <label class="field">
+            <span class="field-label">¿Qué enviás? (opcional)</span>
+            <input id="pedido-contenido" class="waybill-select" type="text"
+              placeholder="Ej: documentación, ropa, repuesto…" />
+          </label>
+          <label class="field">
+            <span class="field-label">Forma de pago</span>
+            <select id="pedido-pago" class="waybill-select" required>
+              <option value="Efectivo al retirar">Efectivo al retirar</option>
+              <option value="Efectivo al entregar">Efectivo al entregar</option>
+              <option value="Transferencia / billetera virtual">Transferencia / billetera virtual</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <label class="modal-check">
+          <input id="pedido-acepto" type="checkbox" required />
+          <span>Confirmo que los datos son correctos y autorizo su uso para coordinar este envío.</span>
+        </label>
+
+        <button type="submit" class="btn btn-confirmar btn-full">Enviar pedido por WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== WHATSAPP FLOTANTE ===== -->
+  <a id="whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="whatsapp-btn"
+    aria-label="Escribinos por WhatsApp">
+    <span class="whatsapp-icon-wrap">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#3FA66A">
+        <path
+          d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm0 2a8 8 0 0 1 6.9 12.1l-.3.5.6 2.2-2.3-.6-.5.3A8 8 0 1 1 12 4Zm-3.1 3.9c-.2 0-.5 0-.7.3-.2.3-.9.9-.9 2.1s.9 2.4 1 2.6c.1.2 1.8 2.9 4.5 4 2.2 1 2.7.8 3.2.8.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.4-.3-.1-1.6-.8-1.9-.9-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.5-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C9.3 9.9 8.8 8.6 8.6 8c-.2-.4-.4-.4-.6-.4h-.5Z" />
+      </svg>
+    </span>
+    <span class="whatsapp-text">
+      <span class="whatsapp-eyebrow">Directo a</span>
+      <span class="whatsapp-word">WhatsApp</span>
+    </span>
+  </a>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
